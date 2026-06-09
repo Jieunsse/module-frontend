@@ -252,7 +252,7 @@ export const MODULES: Module[] = [
     pain: "AI는 매일 바뀌는데 따라가기 벅차고, 가볍게 시작하고 싶어요.",
     what: "검증된 콘텐츠 기반 트렌드·사례 특강",
     output: "우리 회사 적용 아이디어 리스트",
-    audience: "전 직원·임원 · 단발",
+    audience: "전 직원·임원",
     duration: "2~4시간",
     differentiator: "유튜브로 검증된 전달력 있는 콘텐츠",
     cta: "세미나/특강 문의",
