@@ -1,0 +1,190 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+@import "@demodev-ui/react/styles";
+@source "../node_modules/@heroui/react/dist";
+
+@theme {
+  --font-pretendard: "Pretendard Variable", "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+
+  --color-ax-bg: #000000;
+  --color-ax-bg-dark: #0E0813;
+  --color-ax-bg-card: #18181B;
+  --color-ax-bg-deep: #140026;
+  --color-ax-purple: #8337BF;
+  --color-ax-purple-light: #9F63CF;
+  --color-ax-purple-vivid: #9747FF;
+  --color-ax-amber: #fbb03b;
+  --color-ax-text: #FFFFFF;
+  --color-ax-text-80: rgba(255, 255, 255, 0.8);
+  --color-ax-text-90: rgba(255, 255, 255, 0.9);
+  --color-ax-text-muted: #A1A1AA;
+  --color-ax-text-dim: #71717A;
+  --color-ax-border: rgba(0, 0, 0, 0.1);
+  --color-ax-glass: rgba(24, 24, 27, 0.28);
+
+  --accent: #111827;
+  --accent-foreground: #ffffff;
+}
+
+
+/* ============================================================
+   Glass buttons & panels (CSS-only port of @realitsyourman/liquid-glass)
+   .glass-btn  — light glass pill button with hover invert
+   .glass-panel — dark glass card/nav surface
+   .glass-panel--clear — lighter variant used off-home
+   Chromatic aberration is baked into box-shadow; Canvas refraction
+   from the original library is intentionally omitted.
+   ============================================================ */
+.glass-btn,
+.glass-panel {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    inset 8px 6px 20px -4px rgba(255, 160, 60, 0.12),
+    inset -8px -6px 20px -4px rgba(60, 120, 255, 0.10),
+    inset 2px 2px 8px -2px rgba(255, 200, 120, 0.06),
+    inset -2px -2px 8px -2px rgba(100, 160, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
+.glass-btn::before,
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 5%, rgba(255, 255, 255, 0.25) 25%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.25) 75%, transparent 95%);
+  z-index: 4;
+  pointer-events: none;
+}
+
+.glass-btn::after,
+.glass-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 1px;
+  background: linear-gradient(180deg,
+    transparent 10%, rgba(255, 255, 255, 0.12) 30%,
+    rgba(255, 255, 255, 0.08) 70%, transparent 90%);
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Button — GNB pill 동일 다크 그라디언트, hover white 90% w/ black text */
+.glass-btn {
+  background: linear-gradient(
+    180deg,
+    rgba(24, 24, 27, 0.4) 0%,
+    rgba(24, 24, 27, 0.75) 75.48%,
+    rgba(24, 24, 27, 0.55) 100%
+  ) !important;
+  border-radius: var(--radius-button-lg) !important;
+  /* 외곽 드롭은 연하고 좁게 — 내부 chromatic aberration 은 유지 */
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.18),
+    0 1px 1px rgba(0, 0, 0, 0.12),
+    inset 8px 6px 20px -4px rgba(255, 160, 60, 0.12),
+    inset -8px -6px 20px -4px rgba(60, 120, 255, 0.10),
+    inset 2px 2px 8px -2px rgba(255, 200, 120, 0.06),
+    inset -2px -2px 8px -2px rgba(100, 160, 255, 0.05);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+@media (max-width: 767px) {
+  .glass-btn {
+    border-radius: var(--radius-button-md) !important;
+  }
+}
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.90) !important;
+  color: #000000;
+}
+.glass-btn:hover img {
+  filter: invert(1);
+}
+
+/* Panel — dark glass; --clear variant for off-home lighter tint; --grad for GNB pill (Figma node 2070:2617) */
+.glass-panel {
+  background: rgba(0, 0, 0, 0.55) !important;
+  border-radius: 18px;
+}
+.glass-panel--clear {
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+.glass-panel--grad {
+  background: linear-gradient(
+    180deg,
+    rgba(24, 24, 27, 0.4) 0%,
+    rgba(24, 24, 27, 0.75) 75.48%,
+    rgba(24, 24, 27, 0.55) 100%
+  ) !important;
+}
+/* Hackathon SOL02 — 라벤더 글래스 (#E8DCEB @ 60%, 그림자 제거) */
+.glass-panel--lavender {
+  background: rgba(232, 220, 235, 0.6) !important;
+  border-radius: 24px;
+  box-shadow: none !important;
+}
+
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── 마퀴(고민 칩 스트림) ───────────────────────────────── */
+/* 스크롤은 PainSection 의 rAF 가 디바이스 픽셀에 스냅해 적용 (서브픽셀 떨림 방지) */
+/* 양끝 페이드: 화면 폭에 비례(14%)하면 와이드 모니터에서 칩을 통째로 가린다.
+   고정 px 알파 마스크로 바꿔 어떤 해상도에서도 동일하게 좁게 페이드한다. */
+.marquee-mask {
+  position: relative;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 64px,
+    #000 calc(100% - 64px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 64px,
+    #000 calc(100% - 64px),
+    transparent 100%
+  );
+}
+.qrow {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--font-pretendard);
+  background-color: var(--color-ax-bg);
+  color: var(--color-ax-text);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
